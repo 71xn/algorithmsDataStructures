@@ -10,12 +10,14 @@
 * - Insert temp at open position
 * - Increase temp by 1 and continue
 *
-* Complexity: O(n^2)
+* Complexity: O(n^2) because there are two loops
 * Best Case: O(n)
 * Fewer steps than bubble sort
 *
 * small data set: decent
 * large data set: BAD
+*
+* Use insertion sort over bubble or selection, has much better best case
 *
 * */
 
