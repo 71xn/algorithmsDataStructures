@@ -8,6 +8,12 @@ package tech.finnlestrange;
 *
 * Algorithm Info -> In place comparison sorting algorithm that compares the current value to all others in the array
 *
+* Complexity: O(n^2)
+*
+* Good for small datasets, bad for large data sets
+*
+* Quick and easy sorting algorithm to implement
+*
 * */
 
 public class SelectionSort {
