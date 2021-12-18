@@ -17,6 +17,14 @@
 * - Create two sub-arrays, one with all values left of pivot, one with all values right of pivot
 * - Pass sub-arrays as arguments to quicksort
 *
+* Complexity: (Time)
+* - Best Case -> O(n log n)
+* - Average Case -> O(n log n)
+* - Worst case (if array almost sorted) -> O(n^2)
+*
+* Complexity: (Space)
+* - O(n)
+*
 * */
 
 package tech.finnlestrange;
