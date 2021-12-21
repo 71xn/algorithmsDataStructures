@@ -30,6 +30,7 @@
 - [Quick Sort](https://github.com/71xn/algorithmsDataStructures/blob/main/algorithms/src/tech/finnlestrange/QuickSort.java)
 - [Depth First Search](https://github.com/71xn/algorithmsDataStructures/blob/main/algorithms/src/tech/finnlestrange/DepthFirstSearch.java)
 - [Breadth First Search](https://github.com/71xn/algorithmsDataStructures/blob/main/algorithms/src/tech/finnlestrange/BreadthFirstSearch.java)
+- [Tree Traversal + Notes](https://github.com/71xn/algorithmsDataStructures/blob/f5651ad37a1dcb67b20359b6fb383eb86050a2f7/dataStructures/src/tech/finnlestrange/BinarySearchTree.java#L17)
 
 ## Notes
 
