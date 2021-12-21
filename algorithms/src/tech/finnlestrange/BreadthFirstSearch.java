@@ -9,6 +9,8 @@
 *
 * Here, we use a queue to traverse in order, rather than a stack like in DFS
 *
+* BFS better if destination node is, on average, closer to source node, if further away, then DFS is preferred
+*
 * */
 
 // See tech.finnlestrange.graphs.Graph.java for code
@@ -23,5 +25,22 @@ import tech.finnlestrange.graphs.Node;
 public class BreadthFirstSearch {
     public static void main(String[] args) {
 
+        Graph graph = new Graph(5);
+
+        graph.addNode(new Node('A'));
+        graph.addNode(new Node('B'));
+        graph.addNode(new Node('C'));
+        graph.addNode(new Node('D'));
+        graph.addNode(new Node('E'));
+
+        graph.addEdge(0,1);
+        graph.addEdge(1,2);
+        graph.addEdge(2,3);
+        graph.addEdge(3,4);
+        graph.addEdge(4,0);
+
+        graph.print();
+
+        graph.breadthFirstSearch(0);
     }
 }

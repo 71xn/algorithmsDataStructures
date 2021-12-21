@@ -1,6 +1,8 @@
 package tech.finnlestrange.graphs;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Graph {
     protected ArrayList<Node> nodes;
@@ -47,6 +49,34 @@ public class Graph {
     }
 
     // END OF DFS CODE //
+
+
+    // START OF BFS CODE //
+
+    public void breadthFirstSearch(int src) {
+        Queue<Integer> queue = new LinkedList<Integer>();
+        boolean[] visited = new boolean[this.matrix.length];
+
+        queue.offer(src); // add starting node to search from to queue
+        visited[src] = true;
+
+        while (queue.size() != 0) {
+            src = queue.poll();
+            System.out.println(nodes.get(src).getData() + " = visited"); // debug line
+
+            // iterate over rows of edges to look for adjacent neighbors on sources "same level"
+            for (int i = 0; i < this.matrix[src].length; i++) {
+                if (matrix[src][i] == 1 && !visited[i]) {
+                    queue.offer(i); // add unvisited and connected node to the queue
+                    visited[i] = true; // mark node as visited
+                }
+            }
+
+        }
+    }
+
+    // END OF BFS CODE //
+
 
     public void print() {
 
