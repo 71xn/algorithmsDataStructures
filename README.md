@@ -28,6 +28,7 @@
 - [Merge Sort](https://github.com/71xn/algorithmsDataStructures/blob/main/algorithms/src/tech/finnlestrange/MergeSort.java)
 - [Quick Sort](https://github.com/71xn/algorithmsDataStructures/blob/main/algorithms/src/tech/finnlestrange/QuickSort.java)
 - [Depth First Search](https://github.com/71xn/algorithmsDataStructures/blob/main/algorithms/src/tech/finnlestrange/DepthFirstSearch.java)
+- [Breadth First Search](https://github.com/71xn/algorithmsDataStructures/blob/main/algorithms/src/tech/finnlestrange/BreadthFirstSearch.java)
 
 ## Notes
 
