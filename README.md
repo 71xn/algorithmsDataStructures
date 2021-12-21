@@ -13,6 +13,7 @@
 - [Hash Tables / HashMaps](https://github.com/71xn/algorithmsDataStructures/blob/main/dataStructures/src/tech/finnlestrange/HashTables.java)
 - [Graphs](https://github.com/71xn/algorithmsDataStructures/blob/main/dataStructures/src/tech/finnlestrange/Graphs.java)
 - [Adjacency Lists](https://github.com/71xn/algorithmsDataStructures/blob/main/dataStructures/src/tech/finnlestrange/AdjacencyLists.java)
+- [Binary Search Tree](https://github.com/71xn/algorithmsDataStructures/blob/main/dataStructures/src/tech/finnlestrange/BinarySearchTree.java)
 
 ## Algorithms
 
