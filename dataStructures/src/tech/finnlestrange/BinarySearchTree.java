@@ -6,10 +6,28 @@
 * A binary search tree is arranged in a way such that the left child is less than the parent, and the right node greater
 * - The Smallest value will be the deepest left most child, and the deepest right most child will be the largest value
 *
-* Complexity to find value: O(log n) if balanced, else if unbalanced worst case is O(n)
+* Complexity to find value: O(log n) if balanced, else if unbalanced worst case is O(n), can use AVL tree for self-bal
 *
 * space complexity: O(n) -> n = number of nodes
 *
+* */
+
+/*
+*
+* Tree traversal notes:
+* ---------------------
+*
+* 3 types:
+* - In order (left, root, right) entry point is root, go as far left, root of child, right, continue
+* - Post order (left, right, root)
+* - Pre order (root, left, right)
+*
+*
+* Node Removal Notes:
+* -------------------
+* 1. Start at root, find deepest and rightmost node. Find node which we want to remove
+* 2. Replace node to be deleted with the data from the deepest, rightmost node
+* 3. Remove the deepest, rightmost node
 * */
 
 package tech.finnlestrange;
