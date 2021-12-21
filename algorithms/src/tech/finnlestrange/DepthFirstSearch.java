@@ -8,7 +8,7 @@
 *
 * */
 
-// See tech.finnlestrange.graphs.Graphs for code
+// See tech.finnlestrange.graphs.Graphs.java for code
 
 package tech.finnlestrange;
 
