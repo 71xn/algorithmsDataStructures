@@ -6,7 +6,9 @@
 * A binary search tree is arranged in a way such that the left child is less than the parent, and the right node greater
 * - The Smallest value will be the deepest left most child, and the deepest right most child will be the largest value
 *
-* Complexity to find value: O(log n)
+* Complexity to find value: O(log n) if balanced, else if unbalanced worst case is O(n)
+*
+* space complexity: O(n) -> n = number of nodes
 *
 * */
 
