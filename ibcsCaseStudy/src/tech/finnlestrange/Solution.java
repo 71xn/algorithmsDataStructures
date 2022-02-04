@@ -33,10 +33,9 @@ public class Solution {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split("\n");
-                System.out.println(Arrays.stream(values).toList().toString());
-                int[] intValues = Stream.of(values).mapToInt(Integer::parseInt).toArray();
-                System.out.println(intValues);
-                distances.add(Arrays.stream(intValues).boxed().collect(Collectors.toList()));
+                String[] digits = values[0].split(",");
+                System.out.println(Arrays.stream(digits).mapToInt(Integer::parseInt).boxed().toList());
+                distances.add(Arrays.stream(digits).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList()));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,7 +61,7 @@ public class Solution {
 
     // Driver Code // IGNORE
     Solution() throws IOException {
-        String fileToRead = "cities.csv";
+        String fileToRead = "test.csv";
         readData(fileToRead);
         populateCities();
 
