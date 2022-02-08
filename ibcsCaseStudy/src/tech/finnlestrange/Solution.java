@@ -14,7 +14,6 @@ public class Solution {
     private List<String> cities = new ArrayList<>();
 
     private void populateCities() {
-        cities.add("x");
         for (int i = 0; i < 19; i++) {
             cities.add((char)('a' + i) + "");
         }
@@ -34,7 +33,7 @@ public class Solution {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split("\n");
                 String[] digits = values[0].split(",");
-                System.out.println(Arrays.stream(digits).mapToInt(Integer::parseInt).boxed().toList());
+                //System.out.println(Arrays.stream(digits).mapToInt(Integer::parseInt).boxed().toList());
                 distances.add(Arrays.stream(digits).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList()));
             }
         } catch (IOException e) {
@@ -49,21 +48,17 @@ public class Solution {
         }
     }
 
-    private List<List<Integer>> genZero(int parentNumber) {
-        List<List<Integer>> parentGen = new ArrayList<>();
-        List<Integer> totalDistances = new ArrayList<>();
-
-
-        return parentGen;
-    }
-
-
 
     // Driver Code // IGNORE
     Solution() throws IOException {
-        String fileToRead = "test.csv";
+        String fileToRead = "cities.csv";
         readData(fileToRead);
         populateCities();
+
+        // generating first parent generation
+        Salesman sTest = new Salesman(21, distances, cities);
+        System.out.println(sTest.toString());
+
 
     }
 
