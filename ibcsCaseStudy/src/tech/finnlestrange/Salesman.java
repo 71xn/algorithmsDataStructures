@@ -29,11 +29,12 @@ public class Salesman implements Comparable {
 
     // Constructor for a pre-specified genome
     Salesman(List<String> userDefGenome, int numberOfTotalCities, List<List<Integer>> cities, List<String> cityNames) {
+        this.fitness = 0;
+        this.genome = userDefGenome;
         this.cities = cities;
         this.nCities = numberOfTotalCities;
         this.cityNames = cityNames;
 
-        this.genome = userDefGenome;
         this.fitness = this.calcFitness();
     }
 
@@ -52,35 +53,61 @@ public class Salesman implements Comparable {
         int city = (int) x.charAt(0); // convert to char
         int value = 96; // offset for lowercase chars
         return city - value;
-
     }
 
 
-    private int calcFitness() {
+    public int calcFitness() {
+        int fitness = 0;
+
+        // get x distance to current city -> first in the list
+        String first = this.genome.get(0);
+        List<Integer> cRow = cities.get(0);
+        fitness += cRow.get(getIndex(first));
+
+        for (int i = 0; i < genome.size() - 1; i++) {
+            String current = this.genome.get(i);
+            String next = this.genome.get(i + 1);
+            int indexOfCurrentCity = getIndex(current);
+            int indexOfNextCity = getIndex(next);
+            cRow = cities.get(indexOfCurrentCity);
+            fitness += cRow.get(indexOfNextCity);
+        }
+
+        // get distance from last city -> x
+        String last = genome.get(genome.size() - 1);
+        fitness += cRow.get(getIndex(last));
+
+        this.fitness = fitness;
+
+        return fitness;
+    }
+
+    public void testFitness() {
         int fitness = 0;
 
         // get x distance to current city -> first in the list
         String first = genome.get(0);
         int firstIndex = getIndex(first);
-        int indexOfX = 0;
-        List<Integer> cRow = cities.get(indexOfX);
+        List<Integer> cRow = cities.get(0);
+        System.out.println("x" + " -> " + first + " = " + cRow.get(firstIndex));
         fitness += cRow.get(firstIndex);
 
         for (int i = 0; i < genome.size() - 1; i++) {
             String current = genome.get(i);
             String next = genome.get(i + 1);
-            int indexOfNextCity = getIndex(next);
             int indexOfCurrentCity = getIndex(current);
+            int indexOfNextCity = getIndex(next);
             List<Integer> currentRow = cities.get(indexOfCurrentCity);
+            System.out.println(current + " -> " + next + " = " + currentRow.get(indexOfNextCity));
             fitness += currentRow.get(indexOfNextCity);
         }
 
         // get distance from last city -> x
         String last = genome.get(genome.size() - 1);
         int lastIndex = getIndex(last);
+        System.out.println(last + " -> " + "x" + " = " + cRow.get(lastIndex));
         fitness += cRow.get(lastIndex);
-
-        return fitness;
+        System.out.println("total fitness: " + fitness);
     }
 
 
@@ -95,7 +122,7 @@ public class Salesman implements Comparable {
     // toString Override
     @Override
     public String toString() {
-        return genome.toString() + ", fitness: " + this.fitness;
+        return genome.toString() + ", fitness: " + this.calcFitness();
     }
 
     // Allows us to compare fitness of different salesmen

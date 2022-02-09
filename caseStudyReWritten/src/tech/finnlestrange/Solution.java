@@ -1,11 +1,11 @@
 package tech.finnlestrange;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+        import java.io.BufferedReader;
+        import java.io.FileReader;
+        import java.io.IOException;
+        import java.util.*;
+        import java.util.stream.Collectors;
+        import java.util.stream.Stream;
 
 public class Solution {
 
@@ -42,7 +42,7 @@ public class Solution {
     }
 
     private void printData() {
-        System.out.println(cities.toString());
+        System.out.println(cities.toString() + ", number of cities: " + cities.size());
         for (int i = 0; i < distances.size(); i++) {
             System.out.println(distances.get(i).toString());
         }
@@ -56,23 +56,25 @@ public class Solution {
         String fileToRead = "cities.csv";
         readData(fileToRead);
         populateCities();
+        //printData();
 
+        // TEST CODE w/ known good solution
 /*
-        Salesman salesman = new Salesman(20, distances, cities);
-        System.out.println(salesman.getFitness());
+        List<String> check1 = new ArrayList<>(Arrays.asList("n","e","o","r","k","m","f","b","a","g","d","h","c","l","q","j","i","t","s","p")); // -> 1791
+        List<String> check = new ArrayList<>(Arrays.asList("a","f","h","k","r","t","j","e","o","n","p","i","q","l","c","b","g","s","d","m")); // -> 1686
+        List<String> check2 = new ArrayList<>(Arrays.asList("k","t","p","e","d","n","f","o","c","b","r","h","m","g","a","i","l","q","j","s")); // -> 1706
+        List<String> test = new ArrayList<>(Arrays.asList("k","a","j","i","f","o","p","q","h","n","g","b","d","r","m","t","e","l","s","c"));
+
+        Salesman salesman = new Salesman(check , distances, cities);
+        System.out.println(salesman);
 */
 
+        // Actual Algorithm Code
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(cities, distances);
+        Salesman solution = geneticAlgorithm.optimize();
+        System.out.println(solution);
 
-        // Genetic algo method calls
-        float start = System.currentTimeMillis();
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(20, distances, cities, 1700);
-        Salesman optimal = geneticAlgorithm.optimize();
-        float total = System.currentTimeMillis() - start;
-//        optimal.testFitness();
-        System.out.println(optimal);
-        System.out.println("number of generations " + geneticAlgorithm.getNumberGenerations());
-        System.out.println();
-        System.out.println("Total time: " + total + "ms -> " + (total * 1.666667E-5f) + " minutes.");
+
     }
 
     public static void main(String[] args) throws IOException {

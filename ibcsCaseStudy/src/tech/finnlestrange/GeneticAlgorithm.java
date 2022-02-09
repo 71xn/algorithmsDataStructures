@@ -26,7 +26,6 @@ public class GeneticAlgorithm {
         return numberGenerations;
     }
 
-
     public GeneticAlgorithm(int numberOfCities, List<List<Integer>> cities, List<String> cityNames, int targetFitness) {
         this.numberOfCities = numberOfCities;
         this.cities = cities;
@@ -36,7 +35,7 @@ public class GeneticAlgorithm {
 
         generationSize = 6000; // population size
         reproductionSize = 700;
-        maxIteration = 10000;
+        maxIteration = 20000;
         mutationRate = 0.25f;
 
         System.out.println("\u001B[30m" + "\u001B[105m" + "Java TSP Genetic Algorithm Solver - IB Computer Science M22");
@@ -57,18 +56,6 @@ public class GeneticAlgorithm {
         System.out.println();
     }
 
-    public List<Salesman> selection(List<Salesman> population) {
-
-        /*
-        * Loops through size of new gene pool and selects the best candidate using roulette selection that I hardly understand
-        * */
-
-        List<Salesman> selected = new ArrayList<>();
-        for (int i = 0; i < reproductionSize; i++) {
-            selected.add(rouletteSelection(population));
-        }
-        return selected;
-    }
 
     public List<Salesman> generateInitialPopulation() {
         List<Salesman> population = new ArrayList<>();
@@ -79,6 +66,16 @@ public class GeneticAlgorithm {
         return population;
     }
 
+    public List<Salesman> selection(List<Salesman> population) {
+        /*
+        * Loops through size of new gene pool and selects the best candidate using roulette selection that I hardly understand
+        * */
+        List<Salesman> selected = new ArrayList<>();
+        for (int i = 0; i < generationSize; i++) {
+            selected.add(rouletteSelection(population));
+        }
+        return selected;
+    }
 
     public List<Salesman> createGeneration(List<Salesman> population) {
         List<Salesman> generation = new ArrayList<>();
@@ -98,28 +95,30 @@ public class GeneticAlgorithm {
     // this is the termination condition that gives us the optimal solution within a certain number of iterations
     public Salesman optimize() {
         List<Salesman> population = generateInitialPopulation();
-        Salesman best = population.get(0);
+        Salesman best = null;
         for (int i = 0; i < maxIteration; i++) {
             numberGenerations++;
 
             List<Salesman> selected = selection(population);
             population = createGeneration(selected);
             best = Collections.min(population);
+            //System.out.println(best);
+            //System.out.println(numberGenerations);
 
             // add best to a collection
             bestCollection.add(best);
 
             // print stats
-            if (numberGenerations % 400 == 0) System.out.println("\u001B[30m" + "\u001B[106m" + "Current Generation:" + "\u001B[0m" + " " + numberGenerations);
-            if (numberGenerations % 400 == 0) System.out.println("\u001B[30m" + "\u001B[102m" + "Current Best:" + "\u001B[0m" + " " + Collections.min(bestCollection).getFitness());
-            if (numberGenerations % 400 == 0) System.out.println("\u001B[30m" + "\u001B[101m" + "Current Worst:" + "\u001B[0m" + " " + Collections.max(population).getFitness());
-            if (numberGenerations % 400 == 0) System.out.println();
+            if (numberGenerations % 1000 == 0) System.out.println("\u001B[30m" + "\u001B[106m" + "Current Generation:" + "\u001B[0m" + " " + numberGenerations);
+            if (numberGenerations % 1000 == 0) System.out.println("\u001B[30m" + "\u001B[102m" + "Current Best:" + "\u001B[0m" + " " + Collections.min(bestCollection).getFitness());
+            if (numberGenerations % 1000 == 0) System.out.println("\u001B[30m" + "\u001B[101m" + "Current Worst:" + "\u001B[0m" + " " + Collections.max(population).getFitness());
+            if (numberGenerations % 1000 == 0) System.out.println();
 
             if (best.getFitness() < targetFitness) break;
         }
-        System.out.println("\u001B[30m" + "\u001B[102m" + "Best Solution Found 👍");
+        System.out.println("\u001B[30m" + "\u001B[102m" + "Best Solution Found 👍: " + best.getFitness());
         System.out.print("\u001B[0m");
-        return Collections.min(bestCollection);
+        return best;
     }
 
     // theory from here -> https://stackoverflow.com/questions/177271/roulette-selection-in-genetic-algorithms
@@ -127,7 +126,7 @@ public class GeneticAlgorithm {
         // adds up the fitness of the entire population
         int totalFitness = population.stream().map(Salesman::getFitness).mapToInt(Integer::intValue).sum();
 
-        // get random value from 0 - total fitness of the population
+        // get random value from 0 -> total fitness of the population
         Random random = new Random();
         int chosenValue = random.nextInt(totalFitness);
 
@@ -149,7 +148,7 @@ public class GeneticAlgorithm {
 
     }
 
-    public <O> List<O> pickRandomNElements(List<O> list, int n) {
+    public static <O> List<O> pickRandomNElements(List<O> list, int n) {
         Random random = new Random();
         int length = list.size();
 
