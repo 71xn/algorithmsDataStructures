@@ -1,0 +1,3 @@
+Salesman {genome=[n, a, e, d, j, t, i, l, q, o, c, b, r, k, f, g, s, m, h, p], genomeLength=20, fitness=1483}
+Salesman {genome=[t, b, j, i, c, l, q, e, n, d, g, s, a, h, m, k, f, p, r, o], genomeLength=20, fitness=1495}
+Salesman {genome=[r, c, l, q, i, j, e, o, b, f, g, s, d, p, m, a, t, n, k, h], genomeLength=20, fitness=1541}

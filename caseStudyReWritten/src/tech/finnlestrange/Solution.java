@@ -61,7 +61,7 @@ public class Solution {
         // TEST CODE w/ known good solution
 /*
         List<String> check1 = new ArrayList<>(Arrays.asList("n","e","o","r","k","m","f","b","a","g","d","h","c","l","q","j","i","t","s","p")); // -> 1791
-        List<String> check = new ArrayList<>(Arrays.asList("a","f","h","k","r","t","j","e","o","n","p","i","q","l","c","b","g","s","d","m")); // -> 1686
+        List<String> check = new ArrayList<>(Arrays.asList("t","b","j","i","c","l","q","e","n","d","g","s","a","h","m","k","f","p","r","o")); // -> 1483
         List<String> check2 = new ArrayList<>(Arrays.asList("k","t","p","e","d","n","f","o","c","b","r","h","m","g","a","i","l","q","j","s")); // -> 1706
         List<String> test = new ArrayList<>(Arrays.asList("k","a","j","i","f","o","p","q","h","n","g","b","d","r","m","t","e","l","s","c"));
 

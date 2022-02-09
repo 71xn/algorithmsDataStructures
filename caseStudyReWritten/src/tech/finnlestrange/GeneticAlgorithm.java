@@ -38,12 +38,12 @@ public class GeneticAlgorithm {
         this.distances = distances;
 
         // Genetic Algo Variables
-        this.targetFitness = 1500;
-        this.maxIterations = 10000;
-        this.nPerPop = 1000;
+        this.targetFitness = 1330;
+        this.maxIterations = 12000;
+        this.nPerPop = 5000;
         this.genomeLength = cityNames.size() - 1;
-        this.reproductionRate = 200;
-        this.mutationRate = 0.1f;
+        this.reproductionRate = 1200;
+        this.mutationRate = 0.25f;
 
     }
 
@@ -63,6 +63,7 @@ public class GeneticAlgorithm {
 
             if (Collections.min(population).getFitness() < bestSalesman.getFitness()) {
                 bestSalesman = Collections.min(population);
+                fittest.add(bestSalesman);
             }
 
             if (i % 100 == 0) System.out.println("On Generation: " + currentGeneration + "\n" + "Best Fitness so far: " + bestSalesman.getFitness() + ", genome: " + bestSalesman.getGenome());
@@ -70,7 +71,7 @@ public class GeneticAlgorithm {
             // if best salesman from current population is better than the overall best, then replace with new best salesman
             if (bestSalesman.getFitness() <= targetFitness) {
                 System.out.println("Finished on generation: " + currentGeneration + ", data -> fitness: " + bestSalesman.getFitness() + ", genome: " + bestSalesman.getGenome());
-                return bestSalesman;
+                return Collections.min(fittest);
             }
         }
 
@@ -156,6 +157,7 @@ public class GeneticAlgorithm {
         List<Salesman> children = new ArrayList<>();
         int crossoverLength = random.nextInt(genomeLength); // picks a random pos 1 -> size of the genome to be used for crossover
 
+        // this was the issue all along, was modifying the parents therefore fitness values did not match genome fitness
         List<String> parent1 = new ArrayList<>();
         parent1.addAll(parents.get(0).getGenome());
 
