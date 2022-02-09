@@ -31,6 +31,7 @@ public class Salesman implements Comparable {
     Salesman(List<String> userDefGenome, int numberOfTotalCities, List<List<Integer>> cities, List<String> cityNames) {
         this.cities = cities;
         this.nCities = numberOfTotalCities;
+        this.cityNames = cityNames;
 
         this.genome = userDefGenome;
         this.fitness = this.calcFitness();
@@ -68,16 +69,25 @@ public class Salesman implements Comparable {
             int indexOfNextCity = getIndex(next);
             int indexOfCurrentCity = getIndex(current);
             List<Integer> currentRow = cities.get(indexOfCurrentCity);
-            fitness =+ currentRow.get(indexOfNextCity);
+            fitness += currentRow.get(indexOfNextCity);
         }
 
         return fitness;
     }
 
+
+    public int getFitness() {
+        return this.fitness;
+    }
+
+    public List<String> getGenome() {
+        return genome;
+    }
+
     // toString Override
     @Override
     public String toString() {
-        return genome.toString();
+        return genome.toString() + ", fitness: " + this.fitness;
     }
 
     // Allows us to compare fitness of different salesmen

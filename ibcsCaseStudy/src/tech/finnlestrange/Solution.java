@@ -57,9 +57,15 @@ public class Solution {
 
         // generating first parent generation
         Salesman sTest = new Salesman(21, distances, cities);
-        System.out.println(sTest.toString());
+        System.out.println(sTest.getGenome().subList(1,20).size());
 
 
+        Salesman sTest2 = new Salesman(21, distances, cities);
+        System.out.println(sTest2.toString());
+
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(21, distances, cities, 1900);
+        Salesman optimal = geneticAlgorithm.optimize();
+        System.out.println(optimal);
     }
 
     public static void main(String[] args) throws IOException {
