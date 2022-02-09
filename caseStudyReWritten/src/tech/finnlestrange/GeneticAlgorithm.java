@@ -42,8 +42,8 @@ public class GeneticAlgorithm {
         this.maxIterations = 12000;
         this.nPerPop = 5000;
         this.genomeLength = cityNames.size() - 1;
-        this.reproductionRate = 1200;
-        this.mutationRate = 0.25f;
+        this.reproductionRate = 300;
+        this.mutationRate = 0.2f;
 
     }
 
