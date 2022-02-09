@@ -14,7 +14,7 @@ public class Solution {
     private List<String> cities = new ArrayList<>();
 
     private void populateCities() {
-        for (int i = 0; i < 19; i++) {
+        for (int i = 0; i < 20; i++) {
             cities.add((char)('a' + i) + "");
         }
     }
@@ -51,21 +51,21 @@ public class Solution {
 
     // Driver Code // IGNORE
     Solution() throws IOException {
+
+        // Pre-requisite code
         String fileToRead = "cities.csv";
         readData(fileToRead);
         populateCities();
 
-        // generating first parent generation
-        Salesman sTest = new Salesman(21, distances, cities);
-        System.out.println(sTest.getGenome().subList(1,20).size());
-
-
-        Salesman sTest2 = new Salesman(21, distances, cities);
-        System.out.println(sTest2.toString());
-
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(21, distances, cities, 1900);
+        // Genetic algo method calls
+        float start = System.currentTimeMillis();
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(20, distances, cities, 1400);
         Salesman optimal = geneticAlgorithm.optimize();
+        float total = System.currentTimeMillis() - start;
         System.out.println(optimal);
+        System.out.println("number of generations " + geneticAlgorithm.getNumberGenerations());
+        System.out.println();
+        System.out.println("Total time: " + total + "ms -> " + (total / 0.001f) / 60 + " minutes.");
     }
 
     public static void main(String[] args) throws IOException {

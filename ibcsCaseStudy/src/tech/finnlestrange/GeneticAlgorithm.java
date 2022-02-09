@@ -7,17 +7,25 @@ import java.util.Random;
 
 public class GeneticAlgorithm {
 
+    private List<Salesman> bestCollection = new ArrayList<>(); // stores the best ones such that at the end we know we have gotten the best one so far
+
     private List<List<Integer>> cities;
     private List<String> cityNames;
     private int numberOfCities;
 
-    private int populationSize;
     private int generationSize;
     private int maxIteration;
     private int genomeSize; // length of the genome arraylist, numCities - 1
     private int reproductionSize;
     private float mutationRate;
     private int targetFitness;
+
+    private int numberGenerations = 0;
+
+    public int getNumberGenerations() {
+        return numberGenerations;
+    }
+
 
     public GeneticAlgorithm(int numberOfCities, List<List<Integer>> cities, List<String> cityNames, int targetFitness) {
         this.numberOfCities = numberOfCities;
@@ -26,10 +34,27 @@ public class GeneticAlgorithm {
         this.targetFitness = targetFitness;
         this.genomeSize = numberOfCities - 1;
 
-        generationSize = 5000;
-        reproductionSize = 200;
-        maxIteration = 1000;
-        mutationRate = 0.1f;
+        generationSize = 6000; // population size
+        reproductionSize = 700;
+        maxIteration = 10000;
+        mutationRate = 0.25f;
+
+        System.out.println("\u001B[30m" + "\u001B[105m" + "Java TSP Genetic Algorithm Solver - IB Computer Science M22");
+        System.out.println();
+        System.out.print("\u001B[0m");
+        System.out.println("\u001B[30m" + "\u001B[106m" + "Current Settings");
+        System.out.print("\u001B[0m");
+        System.out.println("Number of cities: " + this.numberOfCities);
+        System.out.println("Target Fitness: " + this.targetFitness);
+        System.out.println("Genome Size: " + this.genomeSize);
+        System.out.println("Generation Size: " + this.generationSize);
+        System.out.println("Reproduction Size: " + this.reproductionSize);
+        System.out.println("Max Iterations: " + this.maxIteration);
+        System.out.println("Mutation Rate: " + this.mutationRate);
+        System.out.println();
+        System.out.println("\u001B[30m" + "\u001B[103m" + "Algorithm Running . . .");
+        System.out.print("\u001B[0m");
+        System.out.println();
     }
 
     public List<Salesman> selection(List<Salesman> population) {
@@ -75,12 +100,26 @@ public class GeneticAlgorithm {
         List<Salesman> population = generateInitialPopulation();
         Salesman best = population.get(0);
         for (int i = 0; i < maxIteration; i++) {
+            numberGenerations++;
+
             List<Salesman> selected = selection(population);
             population = createGeneration(selected);
             best = Collections.min(population);
+
+            // add best to a collection
+            bestCollection.add(best);
+
+            // print stats
+            if (numberGenerations % 400 == 0) System.out.println("\u001B[30m" + "\u001B[106m" + "Current Generation:" + "\u001B[0m" + " " + numberGenerations);
+            if (numberGenerations % 400 == 0) System.out.println("\u001B[30m" + "\u001B[102m" + "Current Best:" + "\u001B[0m" + " " + Collections.min(bestCollection).getFitness());
+            if (numberGenerations % 400 == 0) System.out.println("\u001B[30m" + "\u001B[101m" + "Current Worst:" + "\u001B[0m" + " " + Collections.max(population).getFitness());
+            if (numberGenerations % 400 == 0) System.out.println();
+
             if (best.getFitness() < targetFitness) break;
         }
-        return best;
+        System.out.println("\u001B[30m" + "\u001B[102m" + "Best Solution Found 👍");
+        System.out.print("\u001B[0m");
+        return Collections.min(bestCollection);
     }
 
     // theory from here -> https://stackoverflow.com/questions/177271/roulette-selection-in-genetic-algorithms
@@ -134,12 +173,12 @@ public class GeneticAlgorithm {
 
         // Pre-requisite
         Random random = new Random();
-        int breakpoint = random.nextInt(genomeSize - 2);
+        int breakpoint = random.nextInt(genomeSize);
         List<Salesman> children = new ArrayList<>(); // to store all the children created by the crossed over parent genomes
 
         // Make copies of initial parent genomes -> if chosen to crossover we don't want to modify in place
-        List<String> parent1Genome = parents.get(0).getGenome().subList(1, 20);
-        List<String> parent2Genome = parents.get(1).getGenome().subList(1, 20);
+        List<String> parent1Genome = parents.get(0).getGenome();
+        List<String> parent2Genome = parents.get(1).getGenome();
 
         // create the first child
         for (int i = 0; i < breakpoint; i++) {
@@ -149,7 +188,7 @@ public class GeneticAlgorithm {
 
         children.add(new Salesman(parent1Genome, numberOfCities, cities, cityNames));
 
-        parent1Genome = parents.get(0).getGenome().subList(1,20);
+        parent1Genome = parents.get(0).getGenome();
         for (int i = breakpoint; i < 18; i++) {
             String value = parent1Genome.get(i);
             Collections.swap(parent2Genome, parent2Genome.indexOf(value), i);
@@ -161,7 +200,7 @@ public class GeneticAlgorithm {
     }
 
 
-    // Mutation if genome passes probability test
+    // Mutation if genome passes probability test, random probability if it is mutated or not
     public Salesman mutate(Salesman salesman) {
         Random random = new Random();
         float mutate = random.nextFloat(); // random float to get a random number of mutations

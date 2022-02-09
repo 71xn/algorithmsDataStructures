@@ -41,17 +41,13 @@ public class Salesman implements Comparable {
     // Generate Random Genome
     private List<String> randomGenome() {
        List<String> gene = cityNames;
-       List<String> start = new ArrayList<>();
-       start.add("x");
        Collections.shuffle(gene);
-       start.addAll(gene);
-       start.add("x");
-       return start;
+       return gene;
     }
 
     // returns the index that the data for a current city will be at in the cities list
     private int getIndex(String x) {
-        if (x == "x") return 0;
+        // if (x == "x") return 0;
         x = x.toLowerCase(Locale.ROOT);
         int city = (int) x.charAt(0); // convert to char
         int value = 96; // offset for lowercase chars
@@ -63,6 +59,13 @@ public class Salesman implements Comparable {
     private int calcFitness() {
         int fitness = 0;
 
+        // get x distance to current city -> first in the list
+        String first = genome.get(0);
+        int firstIndex = getIndex(first);
+        int indexOfX = 0;
+        List<Integer> cRow = cities.get(indexOfX);
+        fitness += cRow.get(firstIndex);
+
         for (int i = 0; i < genome.size() - 1; i++) {
             String current = genome.get(i);
             String next = genome.get(i + 1);
@@ -71,6 +74,11 @@ public class Salesman implements Comparable {
             List<Integer> currentRow = cities.get(indexOfCurrentCity);
             fitness += currentRow.get(indexOfNextCity);
         }
+
+        // get distance from last city -> x
+        String last = genome.get(genome.size() - 1);
+        int lastIndex = getIndex(last);
+        fitness += cRow.get(lastIndex);
 
         return fitness;
     }
@@ -93,6 +101,13 @@ public class Salesman implements Comparable {
     // Allows us to compare fitness of different salesmen
     @Override
     public int compareTo(Object o) {
-        return 0;
+        Salesman genome = (Salesman) o;
+        if (this.fitness > genome.getFitness()) {
+            return 1;
+        } else if (this.fitness < genome.getFitness()) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
