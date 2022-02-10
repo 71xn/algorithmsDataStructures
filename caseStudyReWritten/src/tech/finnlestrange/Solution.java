@@ -61,19 +61,31 @@ public class Solution {
         // TEST CODE w/ known good solution
 /*
         List<String> check1 = new ArrayList<>(Arrays.asList("n","e","o","r","k","m","f","b","a","g","d","h","c","l","q","j","i","t","s","p")); // -> 1791
-        List<String> check = new ArrayList<>(Arrays.asList("t","b","j","i","c","l","q","e","n","d","g","s","a","h","m","k","f","p","r","o")); // -> 1483
+        List<String> check3 = new ArrayList<>(Arrays.asList("t","b","j","i","c","l","q","e","n","d","g","s","a","h","m","k","f","p","r","o")); // -> 1483
         List<String> check2 = new ArrayList<>(Arrays.asList("k","t","p","e","d","n","f","o","c","b","r","h","m","g","a","i","l","q","j","s")); // -> 1706
         List<String> test = new ArrayList<>(Arrays.asList("k","a","j","i","f","o","p","q","h","n","g","b","d","r","m","t","e","l","s","c"));
+        List<String> check4 = new ArrayList<>(Arrays.asList("s", "g", "a", "m", "h", "k", "r", "o", "i", "t", "d", "n", "e", "j", "q", "l", "c", "b", "f", "p"));
+        List<String> check = new ArrayList<>(Arrays.asList("s","g","a","m","h","f","r","o","i","t","n","d","e","j","q","l","c","b","k","p"));
 
         Salesman salesman = new Salesman(check , distances, cities);
         System.out.println(salesman);
 */
+/*
 
         // Actual Algorithm Code
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(cities, distances);
         Salesman solution = geneticAlgorithm.optimize();
         System.out.println(solution);
+*/
 
+        // Algorithm with predefined starting genome
+        //List<String> predefined = new ArrayList<>(Arrays.asList("n","a","e","d","j","t","i","l","q","o","c","b","r","k","f","g","s","m","h","p"));
+        // List<String> predefined = new ArrayList<>(Arrays.asList("s", "g", "a", "m", "h", "k", "r", "o", "i", "t", "d", "n", "e", "j", "q", "l", "c", "b", "f", "p"));
+        List<String> predefined = new ArrayList<>(Arrays.asList("s","g","a","m","h","f","r","o","i","t","d","n","e","j","q","l","c","b","k","p"));
+
+        GeneticAlgorithm algorithm = new GeneticAlgorithm(cities, distances);
+        Salesman s = algorithm.optimizeStartingGenome(predefined);
+        System.out.println(s);
 
     }
 

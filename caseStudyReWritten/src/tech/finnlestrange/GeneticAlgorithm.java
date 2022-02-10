@@ -38,12 +38,43 @@ public class GeneticAlgorithm {
         this.distances = distances;
 
         // Genetic Algo Variables
-        this.targetFitness = 1330;
+        this.targetFitness = 1200;
         this.maxIterations = 12000;
         this.nPerPop = 5000;
         this.genomeLength = cityNames.size() - 1;
         this.reproductionRate = 300;
         this.mutationRate = 0.2f;
+
+    }
+
+    public Salesman optimizeStartingGenome(List<String> startingGenome) {
+        // create an initial population with the predefined genome
+        List<Salesman> population = generateInitialPopulationDefinedGenome(startingGenome);
+        Salesman bestSalesman = population.get(0); // instantiating the best genome so far
+        fittest = new ArrayList<>();
+
+        int currentGeneration = 0;
+
+        for (int i = 0; i < maxIterations; i++) {
+            currentGeneration++;
+            List<Salesman> selected = selection(population); // select individuals to be reproduced
+            population = generatePopulation(selected); // create a new population from previous ones
+
+            if (Collections.min(population).getFitness() < bestSalesman.getFitness()) {
+                bestSalesman = Collections.min(population);
+                fittest.add(bestSalesman);
+            }
+
+            if (i % 100 == 0) System.out.println("On Generation: " + currentGeneration + "\n" + "Best Fitness so far: " + bestSalesman.getFitness() + ", genome: " + bestSalesman.getGenome());
+
+            // if best salesman from current population is better than the overall best, then replace with new best salesman
+            if (bestSalesman.getFitness() <= targetFitness) {
+                System.out.println("Finished on generation: " + currentGeneration + ", data -> fitness: " + bestSalesman.getFitness() + ", genome: " + bestSalesman.getGenome());
+                return Collections.min(fittest);
+            }
+        }
+
+        return bestSalesman;
 
     }
 
@@ -213,6 +244,14 @@ public class GeneticAlgorithm {
         List<Salesman> gen0 = new ArrayList<>();
         for (int i = 0; i < nPerPop; i++) {
             gen0.add(new Salesman(distances, cityNames));
+        }
+        return gen0;
+    }
+
+    private List<Salesman> generateInitialPopulationDefinedGenome(List<String> preDefinedGenome) {
+        List<Salesman> gen0 = new ArrayList<>();
+        for (int i = 0; i < nPerPop; i++) {
+            gen0.add(new Salesman(preDefinedGenome, distances, cityNames));
         }
         return gen0;
     }
