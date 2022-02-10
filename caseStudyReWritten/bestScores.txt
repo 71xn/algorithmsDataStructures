@@ -1,3 +1,4 @@
+Salesman {genome=[s, g, a, m, h, f, r, o, i, t, n, d, e, j, q, l, c, b, k, p], genomeLength=20, fitness=1308}
 Salesman {genome=[n, a, e, d, j, t, i, l, q, o, c, b, r, k, f, g, s, m, h, p], genomeLength=20, fitness=1483}
 Salesman {genome=[t, b, j, i, c, l, q, e, n, d, g, s, a, h, m, k, f, p, r, o], genomeLength=20, fitness=1495}
 Salesman {genome=[t, o, b, s, g, m, k, h, a, f, r, c, l, q, j, e, i, p, n, d], genomeLength=20, fitness=1505}

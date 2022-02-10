@@ -38,13 +38,12 @@ public class GeneticAlgorithm {
         this.distances = distances;
 
         // Genetic Algo Variables
-        this.targetFitness = 1200;
+        this.targetFitness = 1350;
         this.maxIterations = 12000;
         this.nPerPop = 5000;
         this.genomeLength = cityNames.size() - 1;
         this.reproductionRate = 300;
         this.mutationRate = 0.2f;
-
     }
 
     public Salesman optimizeStartingGenome(List<String> startingGenome) {
@@ -60,9 +59,8 @@ public class GeneticAlgorithm {
         return optimizeHelper(population);
     }
 
-
+    // Helper function for the optimization algorithm
     private Salesman optimizeHelper(List<Salesman> population) {
-
         Salesman bestSalesman = population.get(0); // instantiating the best genome so far
         fittest = new ArrayList<>();
 
@@ -86,7 +84,6 @@ public class GeneticAlgorithm {
                 return Collections.min(fittest);
             }
         }
-
         return bestSalesman;
     }
 
