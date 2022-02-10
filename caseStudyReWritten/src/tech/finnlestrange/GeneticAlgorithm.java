@@ -50,38 +50,19 @@ public class GeneticAlgorithm {
     public Salesman optimizeStartingGenome(List<String> startingGenome) {
         // create an initial population with the predefined genome
         List<Salesman> population = generateInitialPopulationDefinedGenome(startingGenome);
-        Salesman bestSalesman = population.get(0); // instantiating the best genome so far
-        fittest = new ArrayList<>();
-
-        int currentGeneration = 0;
-
-        for (int i = 0; i < maxIterations; i++) {
-            currentGeneration++;
-            List<Salesman> selected = selection(population); // select individuals to be reproduced
-            population = generatePopulation(selected); // create a new population from previous ones
-
-            if (Collections.min(population).getFitness() < bestSalesman.getFitness()) {
-                bestSalesman = Collections.min(population);
-                fittest.add(bestSalesman);
-            }
-
-            if (i % 100 == 0) System.out.println("On Generation: " + currentGeneration + "\n" + "Best Fitness so far: " + bestSalesman.getFitness() + ", genome: " + bestSalesman.getGenome());
-
-            // if best salesman from current population is better than the overall best, then replace with new best salesman
-            if (bestSalesman.getFitness() <= targetFitness) {
-                System.out.println("Finished on generation: " + currentGeneration + ", data -> fitness: " + bestSalesman.getFitness() + ", genome: " + bestSalesman.getGenome());
-                return Collections.min(fittest);
-            }
-        }
-
-        return bestSalesman;
-
+        return optimizeHelper(population);
     }
 
     // Main driver code -> runs the algorithm and returns the fittest individual at the end
     public Salesman optimize() {
         // create an initial population
         List<Salesman> population = generateInitialPopulation();
+        return optimizeHelper(population);
+    }
+
+
+    private Salesman optimizeHelper(List<Salesman> population) {
+
         Salesman bestSalesman = population.get(0); // instantiating the best genome so far
         fittest = new ArrayList<>();
 
@@ -107,7 +88,6 @@ public class GeneticAlgorithm {
         }
 
         return bestSalesman;
-
     }
 
 
