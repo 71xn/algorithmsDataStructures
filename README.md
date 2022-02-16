@@ -32,6 +32,11 @@
 - [Breadth First Search](https://github.com/71xn/algorithmsDataStructures/blob/main/algorithms/src/tech/finnlestrange/BreadthFirstSearch.java)
 - [Tree Traversal + Notes](https://github.com/71xn/algorithmsDataStructures/blob/f5651ad37a1dcb67b20359b6fb383eb86050a2f7/dataStructures/src/tech/finnlestrange/BinarySearchTree.java#L17)
 
+## Misc. Java Projects
+
+- [IB Computer Science M22 Case Study Genetic Algorithm Solution](https://github.com/71xn/algorithmsDataStructures/tree/main/caseStudyReWritten)
+- [Wordle Solver](https://github.com/71xn/algorithmsDataStructures/tree/main/wordleSolver)
+
 ## Notes
 
 > The course content and lessons followed can be found [here](https://youtu.be/CBYHwZcbD-s).
