@@ -44,7 +44,7 @@ public class Solution {
     }
 
 
-    private List<String> optimizeLikelyWord(String known, String not, Map<Integer, String> knownInPos) {
+    private List<String> optimizeLikelyWord(String known, String not, Map<Integer, String> knownInPos, Map<Integer, String> knownButNotInPos) {
 
         /*
         * known is a string that has all letters known but not in position
@@ -74,6 +74,17 @@ public class Solution {
             }
         }
 
+        // removing words that contain characters in a position we know they are not
+        List<String> temp1 = new LinkedList<>();
+        temp1.addAll(potentialWords);
+        for (String word : temp1) {
+            for (Integer key : knownButNotInPos.keySet()) {
+                String value = knownButNotInPos.get(key);
+                if (word.charAt(key) == (value.charAt(0))) potentialWords.remove(word);
+            }
+        }
+
+
 
         // optimizing for letters in certain positions
         List<String> toRemove = new LinkedList<>();
@@ -93,12 +104,21 @@ public class Solution {
 
     public void output() {
         Map<Integer, String> knownInPos = new HashMap<>();
+        Map<Integer, String> knownButNotInPos = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Wordle Solver: ");
         System.out.print("\nPlease input the letters you know with no spaces: ");
 
         String known = scanner.nextLine();
         known = known.toLowerCase(Locale.ROOT);
+
+        // positions of letters in words but in wrong position
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Right letter wrong position (" + (i + 1) + ") : ");
+            String line = scanner.nextLine().toLowerCase(Locale.ROOT);
+            if (line == "" || line == null || line == "\n") continue;
+            else knownButNotInPos.put(i, line);
+        }
 
         System.out.print("\nPlease input the letters you know are not in the word with no spaces: ");
 
@@ -117,7 +137,7 @@ public class Solution {
         for (int i = 0; i < knownInPos.size(); i++) if (knownInPos.get(i) == "" || knownInPos.get(i) == null) knownInPos.remove(i);
 
         System.out.println("\nPotential Solutions: ");
-        List<String> w = optimizeLikelyWord(known, not, knownInPos);
+        List<String> w = optimizeLikelyWord(known, not, knownInPos, knownButNotInPos);
         System.out.println(w);
 
     }
