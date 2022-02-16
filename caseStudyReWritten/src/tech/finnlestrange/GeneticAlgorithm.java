@@ -30,7 +30,6 @@ public class GeneticAlgorithm {
     private final int reproductionRate; // the number of individuals / salesmen to be reproduced for the next generation
     private final float mutationRate; // frequency of mutations when creating a new generation
 
-
     // Constructor
     GeneticAlgorithm(List<String> cityNames, List<List<Integer>> distances) {
         // Set variables
@@ -38,12 +37,12 @@ public class GeneticAlgorithm {
         this.distances = distances;
 
         // Genetic Algo Variables
-        this.targetFitness = 1350;
+        this.targetFitness = 1301;
         this.maxIterations = 12000;
         this.nPerPop = 5000;
         this.genomeLength = cityNames.size() - 1;
         this.reproductionRate = 300;
-        this.mutationRate = 0.2f;
+        this.mutationRate = 0.4f;
     }
 
     public Salesman optimizeStartingGenome(List<String> startingGenome) {
@@ -113,7 +112,6 @@ public class GeneticAlgorithm {
     }
 
     private Salesman rouletteSelection(List<Salesman> population) {
-
         // sum all fitness values in population
         int sumOfFitnessOfPopulation = population.stream().map(Salesman::getFitness).mapToInt(Integer::intValue).sum();
 
@@ -130,7 +128,6 @@ public class GeneticAlgorithm {
             fitnessTemp = fitnessTemp + salesman.getFitness();
             if (fitnessTemp >= pValue) return salesman;
         }
-
         // if condition above is never reached, then return a random value
         return population.get(random.nextInt(population.size()));
     }
@@ -143,7 +140,6 @@ public class GeneticAlgorithm {
         for (int i = list.size() - 1; i >= list.size() - n; i--) {
             Collections.swap(list, i, random.nextInt(i + 1));
         }
-
         return list.subList(list.size() - n, list.size());
     }
 
@@ -237,6 +233,7 @@ public class GeneticAlgorithm {
         List<Salesman> population = new ArrayList<>();
 
         int currentPopulationSize = 0;
+
         while (currentPopulationSize < nPerPop) {
             List<Salesman> parents = pickNRandomIndividuals(previousPopulation, 2); // pick 2 random parents from previous population
             List<Salesman> children = crossover(parents); // create 2 children to add to new population
@@ -248,12 +245,7 @@ public class GeneticAlgorithm {
             population.addAll(children);
             // increase population size by 2 -> added 2 children
             currentPopulationSize = currentPopulationSize + 2;
-
         }
-
         return population;
     }
-
-
-
 }

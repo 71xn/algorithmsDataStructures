@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ibcsCaseStudy.iml" filepath="$PROJECT_DIR$/ibcsCaseStudy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wordleSolver.iml" filepath="$PROJECT_DIR$/wordleSolver.iml" />
     </modules>
   </component>
 </project>
