@@ -149,7 +149,6 @@ public class Solution {
         Map<Integer, String> knownInPos = new HashMap<>();
         Map<Integer, String> knownButNotInPos = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\u001B[106m" + "\u001B[90m" + "Wordle Solver - Current Build: 16-02-22 Finn Lestrange" + "\u001B[0m" + "\n");
         System.out.print("\u001B[103m" + "\u001B[90m" + "Please enter all known letters, regardless of if they are in the correct place, ex. abc (yellow or green letters) :" + "\u001B[0m" + " ");
 
         String known = scanner.nextLine();
@@ -169,6 +168,13 @@ public class Solution {
 
         String not = scanner.nextLine();
         not = not.toLowerCase(Locale.ROOT);
+
+        // checking to see if duplicate letters, i.e. there is only 1 a but you tried a second a and it is grey so you type it in accidentally
+        char[] temp = not.toCharArray(); // to avoid in place modification
+        for (char c : temp){
+            char[] k = known.toCharArray();
+            for (int i = 0; i < k.length; i++) if (k[i] == c) not = not.replace(c + "", "");
+        }
 
         System.out.println();
         System.out.println("\u001B[102m" + "\u001B[90m" + "Please input the letters you know the positions of (green letters):" + "\u001B[0m" + " ");
@@ -195,6 +201,7 @@ public class Solution {
 
         Scanner s = new Scanner(System.in);
 
+        System.out.println("\u001B[106m" + "\u001B[90m" + "Wordle Solver - Current Build: 16-02-22 Finn Lestrange - Starting Words: salet, crane, audio" + "\u001B[0m" + "\n");
         while (true) {
             output();
             System.out.println();
