@@ -119,11 +119,13 @@ public class Solution {
 
         // removing words that contain characters in a position we know they are not
         List<String> temp1 = new LinkedList<>();
-        temp1.addAll(potentialWords);
+        temp1.addAll(potentialWords); // stops in-place modification exception for modifying an array we are looping
         for (String word : temp1) {
             for (Integer key : knownButNotInPos.keySet()) {
                 String value = knownButNotInPos.get(key);
-                if (word.charAt(key) == (value.charAt(0))) potentialWords.remove(word);
+                for (int i = 0; i < value.length(); i++) {
+                    if (word.charAt(key) == (value.charAt(i))) potentialWords.remove(word);
+                }
             }
         }
 
@@ -147,15 +149,15 @@ public class Solution {
         Map<Integer, String> knownInPos = new HashMap<>();
         Map<Integer, String> knownButNotInPos = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\u001B[106m" + "\u001B[90m" + "Wordle Solver" + "\u001B[0m");
-        System.out.print("\nPlease enter all known letter, regardless of if they are in the correct place, ex. abc : ");
+        System.out.println("\u001B[106m" + "\u001B[90m" + "Wordle Solver - Current Build: 16-02-22 Finn Lestrange" + "\u001B[0m" + "\n");
+        System.out.print("\u001B[103m" + "\u001B[90m" + "Please enter all known letters, regardless of if they are in the correct place, ex. abc (yellow or green letters) :" + "\u001B[0m" + " ");
 
         String known = scanner.nextLine();
         known = known.toLowerCase(Locale.ROOT);
 
         // positions of letters in words but in wrong position
         System.out.println();
-        System.out.println("Please enter the letters that are in the word, but in the wrong position: ");
+        System.out.println("\u001B[103m" + "\u001B[90m" + "Please enter the letters that are in the word, but in the wrong position (yellow letters):" + "\u001B[0m" + "");
         for (int i = 0; i < 5; i++) {
             System.out.print("Right letter wrong position (" + (i + 1) + ") : ");
             String line = scanner.nextLine().toLowerCase(Locale.ROOT);
@@ -163,13 +165,13 @@ public class Solution {
             else knownButNotInPos.put(i, line);
         }
 
-        System.out.print("\nPlease input the letters you know are not in the word ex. hyg : ");
+        System.out.print("\n" + "\u001B[100m" + "\u001B[97m" + "Please input the letters you know are not in the word, ex. hyg (grey letters) :" + "\u001B[0m" + " ");
 
         String not = scanner.nextLine();
         not = not.toLowerCase(Locale.ROOT);
 
         System.out.println();
-        System.out.println("Please input the letters you know the positions of: ");
+        System.out.println("\u001B[102m" + "\u001B[90m" + "Please input the letters you know the positions of (green letters):" + "\u001B[0m" + " ");
 
         for (int i = 0; i < 5; i++) {
             System.out.print("Letter in position (" + (i + 1) + ") : ");
@@ -180,10 +182,10 @@ public class Solution {
 
         for (int i = 0; i < knownInPos.size(); i++) if (knownInPos.get(i) == "" || knownInPos.get(i) == null) knownInPos.remove(i);
 
-        System.out.println("\nPotential Solutions (ranked based on frequency in the english language): ");
+        System.out.println("\n" + "\u001B[105m" + "\u001B[90m" + "Potential Solutions (ranked based on frequency in the english language)" + "\u001B[0m" + " ");
         List<String> w = optimizeLikelyWord(known, not, knownInPos, knownButNotInPos);
         w = rankWords(w); // ranks the words based on their
-        System.out.println(w);
+        System.out.println(w + "\n");
     }
 
     public Solution() {
@@ -191,14 +193,14 @@ public class Solution {
         readWords("words.txt");
         readFrequencies("frequency.txt");
 
-        // System.out.println(frequencies.get("which"));
+        Scanner s = new Scanner(System.in);
 
         while (true) {
             output();
             System.out.println();
-            System.out.println("Would you like to run the code again with new letters: y or n");
-            Scanner s = new Scanner(System.in);
+            System.out.print("Would you like to run the solver again with new letters (y or n)?: ");
             String line = s.nextLine().toLowerCase(Locale.ROOT);
+            System.out.println();
             if (line.contains("y")) continue;
             else if (line != "y") {
                 break;
