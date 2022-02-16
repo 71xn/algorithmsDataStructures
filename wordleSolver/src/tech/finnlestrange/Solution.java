@@ -123,7 +123,17 @@ public class Solution {
     }
 
     public Solution() {
-        output();
+        while (true) {
+            output();
+            System.out.println();
+            System.out.println("Would you like to run the code again with new letters: y or n");
+            Scanner s = new Scanner(System.in);
+            String line = s.nextLine().toLowerCase(Locale.ROOT);
+            if (line.contains("y")) continue;
+            else if (line != "y") {
+                break;
+            }
+        }
     }
 
     public static void main(String[] args) {
