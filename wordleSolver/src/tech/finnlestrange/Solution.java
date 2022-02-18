@@ -5,6 +5,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/*
+* TODO
+*  - THIS IS ADDED AND IT WORKS
+*  - Need to add in duplicate letters, so if there is not a duplicate letter i.e. first e is yellow, and second e is grey
+*  - Remove the words with duplicate of the letter we know is not a duplicate
+*
+* */
+
 public class Solution {
 
     List<String> words;
@@ -89,8 +97,15 @@ public class Solution {
         return false;
     }
 
+    // checks to see if a word contains two of the same characters
+    private boolean checkDuplicateLetter(String s, String letter) {
+        // remove letters and check to see if string with letter removed is less than 1 less than the original
+        return s.replaceAll(letter, "").length() < (s.length() - 1);
 
-    private List<String> optimizeLikelyWord(String known, String not, Map<Integer, String> knownInPos, Map<Integer, String> knownButNotInPos) {
+    }
+
+
+    private List<String> optimizeLikelyWord(String known, String not, Map<Integer, String> knownInPos, Map<Integer, String> knownButNotInPos, String knownNotDuplicate) {
 
         /*
         * known is a string that has all letters known but not in position
@@ -129,6 +144,15 @@ public class Solution {
             }
         }
 
+        // removing all words that contain duplicate letters we know are not
+        List<String> temp2 = new LinkedList<>();
+        temp2.addAll(potentialWords);
+        for (String word : temp2) {
+            for (char c : knownNotDuplicate.toCharArray()) {
+                if (checkDuplicateLetter(word, c + "")) potentialWords.remove(word);
+            }
+        }
+
         // optimizing for letters in certain positions
         List<String> toRemove = new LinkedList<>();
         for (String word : potentialWords) {
@@ -148,6 +172,7 @@ public class Solution {
     public void output() {
         Map<Integer, String> knownInPos = new HashMap<>();
         Map<Integer, String> knownButNotInPos = new HashMap<>();
+        String knownNotDuplicate = "";
         Scanner scanner = new Scanner(System.in);
         System.out.print("\u001B[103m" + "\u001B[90m" + "Please enter all known letters, regardless of if they are in the correct place, ex. abc (yellow or green letters) :" + "\u001B[0m" + " ");
 
@@ -164,12 +189,17 @@ public class Solution {
             else knownButNotInPos.put(i, line);
         }
 
+        // used to remove words that we know do not contain a duplicate of a certain letter
+        System.out.print("\n" + "\u001B[47m" + "\u001B[97m" + "Please input the letters you know are not duplicated in the word, i.e. first 'e' is green or yellow, second 'e' is grey :" + "\u001B[0m" + " ");
+        knownNotDuplicate = scanner.nextLine().toLowerCase(Locale.ROOT);
+        System.out.println();
+
         System.out.print("\n" + "\u001B[100m" + "\u001B[97m" + "Please input the letters you know are not in the word, ex. hyg (grey letters) :" + "\u001B[0m" + " ");
 
         String not = scanner.nextLine();
         not = not.toLowerCase(Locale.ROOT);
 
-        // checking to see if duplicate letters, i.e. there is only 1 a but you tried a second a and it is grey so you type it in accidentally
+        // checking to see if duplicate letters, i.e. there is only 1 "a" but you tried a second "a" and it is grey, so you type it in accidentally
         char[] temp = not.toCharArray(); // to avoid in place modification
         for (char c : temp){
             char[] k = known.toCharArray();
@@ -189,7 +219,7 @@ public class Solution {
         for (int i = 0; i < knownInPos.size(); i++) if (knownInPos.get(i) == "" || knownInPos.get(i) == null) knownInPos.remove(i);
 
         System.out.println("\n" + "\u001B[105m" + "\u001B[90m" + "Potential Solutions (ranked based on frequency in the english language)" + "\u001B[0m" + " ");
-        List<String> w = optimizeLikelyWord(known, not, knownInPos, knownButNotInPos);
+        List<String> w = optimizeLikelyWord(known, not, knownInPos, knownButNotInPos, knownNotDuplicate);
         w = rankWords(w); // ranks the words based on their
         System.out.println(w + "\n");
     }
